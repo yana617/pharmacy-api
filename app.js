@@ -12,6 +12,8 @@ const boolParser = require('express-query-boolean');
 
 dotenv.config();
 
+require('./database/connect');
+
 const app = express();
 
 app.use(morgan(':method [:status] :url  :response-time ms'));
