@@ -1,10 +1,34 @@
 const mongoose = require('mongoose');
 
+const { MEDICINES_TYPES, MEDICINES_CLASSES } = require('../constants');
+
 const medicineSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     trim: true,
+  },
+  expiration_date: {
+    type: Date,
+    required: true,
+  },
+  count: {
+    type: Number,
+    required: true,
+  },
+  type: {
+    type: String,
+    enum: MEDICINES_TYPES,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: false,
+  },
+  class: {
+    type: String,
+    enum: MEDICINES_CLASSES,
+    required: false,
   },
   app_id: {
     type: mongoose.Types.ObjectId,
