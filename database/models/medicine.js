@@ -1,41 +1,6 @@
 const mongoose = require('mongoose');
 
-const drug_type = [
-  'capsule',
-  'tablet',
-  'injection',
-  'powder',
-  'ointment',
-  'cream', 
-  'gel', 
-  'solution', 
-  'tincture', 
-  'suspension', 
-  'drops', 
-  'syrup', 
-  'aerosol', 
-  'other',
-];
-
-const drug_class = [
-  'antibacterial_drugs', 
-  'hormones', 
-  'drugs_affecting_immunity', 
-  'drugs_affecting_metabolism', 
-  'drugs_affecting_the_psyche', 
-  'drugs_affecting_blood_clotting',
-  'drugs_affecting_vascular_tone', 
-  'drugs_affecting_the_function_of_the_bronchi', 
-  'antiparasitic_and_antihelminthic_drugs', 
-  'drugs_affecting_the_function_of_the_gastrointestinal_tract', 
-  'drugs_affecting_myocardial_function', 
-  'drugs_affecting_renal_function', 
-  'antiviral_drugs', 
-  'antiinflammatory_and_pain_relievers',
-  'antifungal_drugs', 
-  'antineoplastic_drugs', 
-  'others',
-];
+const { DRUG_TYPES, DRUG_CLASSES } = require('../constants');
 
 const medicineSchema = new mongoose.Schema({
   name: {
@@ -53,7 +18,7 @@ const medicineSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: drug_type,
+    enum: DRUG_TYPES,
     required: true,
   },
   description: {
@@ -62,7 +27,7 @@ const medicineSchema = new mongoose.Schema({
   },
   class: {
     type: String,
-    enum: drug_class,
+    enum: DRUG_CLASSES,
     required: false,
   },
   app_id: {
