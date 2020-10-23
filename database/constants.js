@@ -1,4 +1,4 @@
-const DRUG_TYPES = [
+exports.MEDICINES_TYPES = [
     'capsule',
     'tablet',
     'injection',
@@ -15,7 +15,7 @@ const DRUG_TYPES = [
     'other',
   ];
   
-  const DRUG_CLASSES = [
+  exports.MEDICINES_CLASSES = [
     'antibacterial_drugs', 
     'hormones', 
     'drugs_affecting_immunity', 
