@@ -1,21 +1,22 @@
 const mongoose = require('mongoose');
 
-const adminSchema = new mongoose.Schema({
+const AdminSchema = new mongoose.Schema({
   login: { 
       type: String, 
       required: true, 
-      trim: true 
+      unique: true,
+      trim: true, 
     },
   hash: { 
-      type: String, 
-      required: true 
+    type: String,
+    required: true,
     },
-  salt: { 
-      type: String, 
-      required: true 
+  salt: {     
+    type: String,
+    required: true, 
     },  
 });
+   
+ const Admin = mongoose.model('Admin', AdminSchema);
 
-const Admin = mongoose.model('Admin', adminSchema);
-
-module.exports = Admin;
+ module.exports = { Admin };
