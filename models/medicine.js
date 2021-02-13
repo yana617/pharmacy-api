@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { MEDICINES_TYPES, MEDICINES_CLASSES } = require('../constants');
+const { MEDICINES_TYPES, MEDICINES_CLASSES } = require('../db/constants');
 
 const medicineSchema = new mongoose.Schema({
   name: {

@@ -1,6 +1,6 @@
 const route = require('express').Router();
 
-const Medicine = require('../database/models/medicine');
+const Medicine = require('../models/medicine');
 
 route.get('/', async (req, res) => {
   try {
