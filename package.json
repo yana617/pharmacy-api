@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NODE_ENV=prod node index.js",
+    "dev": "NODE_ENV=dev nodemon index.js",
+    "test": "NODE_ENV=test jest"
   },
   "repository": {
     "type": "git",
@@ -18,20 +18,26 @@
     "url": "https://github.com/yana617/pharmacy-api/issues"
   },
   "homepage": "https://github.com/yana617/pharmacy-api#readme",
-  "devDependencies": {
-    "nodemon": "^2.0.5"
+  "jest": {
+    "testEnvironment": "node"
   },
   "dependencies": {
-    "chalk": "^4.1.0",
-    "connect-mongo": "^3.2.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
+    "bcrypt": "5.0.0",
+    "chalk": "4.1.0",
+    "connect-mongo": "3.2.0",
+    "cookie-parser": "1.4.5",
+    "cors": "2.8.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-query-boolean": "^2.0.0",
-    "express-session": "^1.17.1",
-    "mongoose": "^5.10.9",
-    "morgan": "^1.10.0",
-    "passport": "^0.4.1"
+    "express": "4.17.1",
+    "express-query-boolean": "2.0.0",
+    "express-session": "1.17.1",
+    "mongoose": "5.10.9",
+    "morgan": "1.10.0",
+    "passport": "0.4.1"
+  },
+  "devDependencies": {
+    "jest": "26.6.3",
+    "nodemon": "2.0.5",
+    "supertest": "^6.1.3"
   }
 }

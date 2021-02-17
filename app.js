@@ -10,13 +10,15 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const boolParser = require('express-query-boolean');
 
-dotenv.config();
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
-require('./database/connect');
+require('./db/connect');
 
 const app = express();
 
-app.use(morgan(':method [:status] :url  :response-time ms'));
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan(':method [:status] :url  :response-time ms'));
+}
 
 // const whitelist = [''];
 // const corsOptions = {
@@ -56,10 +58,6 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// require('./api/passport');
-
 app.use(require('./routes'));
 
-const server = app.listen(process.env.PORT, () => {
-  console.log(`[*] Server started on port ${server.address().port}`);
-});
+module.exports = app;
