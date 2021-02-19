@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 const route = require('express').Router();
 
 const Admin = require('../models/admin');
@@ -23,7 +24,7 @@ route.post('/register', async (req, res) => {
     }
 
     const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt)
+    const hash = await bcrypt.hash(password, salt);
 
     const admin = new Admin({
       login,
@@ -36,6 +37,27 @@ route.post('/register', async (req, res) => {
   } catch (e) {
     res.status(500).json({ success: false, error: e.message });
   }
+});
+
+route.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, admin, message) => {
+    if (!admin) {
+      return res.status(400).json({ success: false, ...message });
+    }
+
+    req.login(admin, (error) => {
+      if (error) {
+        return res.status(400).json({ success: false, ...message });
+      }
+
+      res.json({
+        success: true,
+        admin: {
+          login: admin.login,
+        },
+      });
+    });
+  })(req, res, next);
 });
 
 module.exports = route; 
