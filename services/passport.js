@@ -15,7 +15,7 @@ passport.use(new LocalStrategy({
       });
     }
     if (admin.hash !== bcrypt.hashSync(password, admin.salt)) {
-      return done(null, false, { 
+      return done(null, false, {
         error: 'Invalid password',
       });
     }

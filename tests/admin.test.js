@@ -50,7 +50,7 @@ test('Shouldn\'t login admin when password is wrong', async () => {
       password: 'not-exist',
     })
     .expect(400);
-  
+
   const { error } = response.body;
   expect(error).toBe('Invalid password');
 });

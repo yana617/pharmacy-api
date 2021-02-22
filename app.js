@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const boolParser = require('express-query-boolean');
 const swaggerUi = require('swagger-ui-express');
-const fs   = require('fs');
+const fs = require('fs');
 const yaml = require('js-yaml');
 
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yaml'));
