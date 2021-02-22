@@ -20,7 +20,7 @@ route.post('/register', async (req, res) => {
 
     const adminExist = await Admin.findOne({ login });
     if (adminExist) {
-      return res.status(400).json({ success: false, error: 'User with this login already exists' });
+      return res.status(400).json({ success: false, error: 'Admin with this login already exists' });
     }
 
     const salt = await bcrypt.genSalt(10);

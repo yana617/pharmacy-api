@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  title: Pharmacy API
+  version: 0.0.1
+servers:
+  - url: http://localhost:xxxx/
+    description: Dev server
+paths:
+  /admins/register:
+    post:
+      summary: Register a new admin
+      description: You can register a new admin
+      parameters:
+        - in: query
+          name: register_token
+          description: Special token which gives you ability to register a new admin
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        '201':
+          description: Returns new admin's credentials
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  admin:
+                    $ref: '#/components/schemas/Admin'
+        '400':
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                success: false
+                error: 'Admin with this login already exists'
+        '403':
+          description: Forbidden error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                success: false
+                error: 'Invalid token'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /admins/login:
+    post:
+      summary: Login existing admin
+      description: You can login with credentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        '200':
+          description: Returns admin's credentials
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  admin:
+                    $ref: '#/components/schemas/Admin'
+        '400':
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                success: false
+                error: 'Admin with this login not exists'
+components:
+  schemas:
+    errorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: false
+        error:
+          type: string
+    credentials:
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+    Admin:
+      type: object
+      properties:
+        login:
+          type: string
+          default: 'test@example.com'
