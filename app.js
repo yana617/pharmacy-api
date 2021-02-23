@@ -17,14 +17,10 @@ const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yaml'));
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 require('./db/connect');
-require('./services/passport');
 
 const app = express();
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan(':method [:status] :url  :response-time ms'));
@@ -47,10 +43,15 @@ app.use(expressSession({
   saveUninitialized: false,
   rolling: true,
   cookie: {
-    secure: true,
+    secure: false,
     maxAge: 3 * 24 * 60 * 60 * 1000,
   },
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./services/passport');
 
 app.use(require('./routes'));
 

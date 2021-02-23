@@ -10,6 +10,11 @@ const appSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  admin_id: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Admin',
+    required: true,
+  },
 });
 
 appSchema.virtual('medicines', {
