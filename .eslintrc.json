@@ -11,7 +11,8 @@
     "beforeAll": true,
     "afterAll": true,
     "test": true,
-    "beforeEach": true
+    "beforeEach": true,
+    "jest": true
   },
   "rules": {
     "linebreak-style": 0,
