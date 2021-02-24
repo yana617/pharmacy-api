@@ -12,6 +12,7 @@
     "afterAll": true,
     "test": true,
     "beforeEach": true,
+    "afterEach": true,
     "jest": true
   },
   "rules": {

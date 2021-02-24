@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-afterAll(() => {
-  mongoose.disconnect();
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
+require('../../db/connect');
+
+afterAll(async () => {
+  await mongoose.disconnect();
 });
