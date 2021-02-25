@@ -136,12 +136,16 @@ components:
     Admin:
       type: object
       properties:
+        _id:
+          type: string
         login:
           type: string
           default: 'test@example.com'
     App:
       type: object
       properties:
+        _id:
+          type: string
         name:
           type: string
           default: 'App name'
