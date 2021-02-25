@@ -4,19 +4,17 @@ const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
 const passport = require('passport');
-const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const boolParser = require('express-query-boolean');
 const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
 const yaml = require('js-yaml');
-
-const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yaml'));
+const dotenv = require('dotenv');
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
-require('./db/connect');
+const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yaml'));
 
 const app = express();
 
