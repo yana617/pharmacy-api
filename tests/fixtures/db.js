@@ -20,15 +20,35 @@ const adminTwo = {
   password: 'testTest2',
 };
 
+const appOneId = new mongoose.Types.ObjectId();
+const appTwoId = new mongoose.Types.ObjectId();
+
 const appOne = {
+  _id: appOneId,
   name: 'AppOne',
   access_key: 'test-key',
   admin_id: adminOneId,
 };
 const appTwo = {
+  _id: appTwoId,
   name: 'AppTwo',
   access_key: 'test-key-two',
   admin_id: adminTwoId,
+};
+
+const medicineOne = {
+  name: 'Ambroxol',
+  expiration_date: new Date(),
+  count: 5,
+  type: 'tablet',
+  app_id: appOneId,
+};
+const medicineTwo = {
+  name: 'Metoclopramide',
+  expiration_date: new Date(),
+  count: 10,
+  type: 'tablet',
+  app_id: appTwoId,
 };
 
 const createAdminsCredentials = async () => {
@@ -49,4 +69,6 @@ module.exports = {
   appOne,
   appTwo,
   createAdminsCredentials,
+  medicineOne,
+  medicineTwo,
 };
