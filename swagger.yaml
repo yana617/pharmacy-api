@@ -149,6 +149,43 @@ paths:
               example:
                 success: false
                 error: 'App with such access key not found'
+  /medicines/{medicineId}:
+    get:
+      summary: Get medicine by ID
+      parameters:
+        - in: header
+          name: access-key
+          description: app related token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: medicineId
+          schema:
+            type: string
+          required: true
+          description: Numeric ID of the medicine to get
+      responses:
+        '200':
+          description: Returns correct medicine
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  medicine:
+                    $ref: '#/components/schemas/Medicine'
+        '400':
+          description: Access-key errors or if such medicine is not exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                success: false
+                error: 'App with such access key not found'
 components:
   schemas:
     errorResponse:

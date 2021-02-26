@@ -36,7 +36,11 @@ const appTwo = {
   admin_id: adminTwoId,
 };
 
+const medicineOneId = new mongoose.Types.ObjectId();
+const medicineTwoId = new mongoose.Types.ObjectId();
+
 const medicineOne = {
+  _id: medicineOneId,
   name: 'Ambroxol',
   expiration_date: new Date(),
   count: 5,
@@ -44,6 +48,7 @@ const medicineOne = {
   app_id: appOneId,
 };
 const medicineTwo = {
+  _id: medicineTwoId,
   name: 'Metoclopramide',
   expiration_date: new Date(),
   count: 10,
