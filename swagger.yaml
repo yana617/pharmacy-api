@@ -116,6 +116,39 @@ paths:
               example:
                 success: false
                 error: 'Unauthorized'
+  /medicines:
+    get:
+      summary: Get medicines by access-key (related to one app)
+      parameters:
+        - in: header
+          name: access-key
+          description: app related token
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns medicines related to one app
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  medicines:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Medicine'
+        '400':
+          description: Access-key errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                success: false
+                error: 'App with such access key not found'
 components:
   schemas:
     errorResponse:
@@ -152,4 +185,26 @@ components:
         access_key:
           type: string
         admin_id:
+          type: string
+    Medicine:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+          default: 'Ambroxol'
+        count:
+          type: number
+        type:
+          type: string
+          enum: [capsule, tablet, injection, powder, ointment, cream, gel, solution, tincture, suspension, drops, syrup, aerosol, other]
+        expiration_date:
+          type: string
+        description:
+          type: string
+        class: 
+          type: string
+          enum: [antibacterial_drugs, hormones, drugs_affecting_immunity, drugs_affecting_metabolism, drugs_affecting_the_psyche, drugs_affecting_blood_clotting, drugs_affecting_vascular_tone, drugs_affecting_the_function_of_the_bronchi, antiparasitic_and_antihelminthic_drugs, drugs_affecting_the_function_of_the_gastrointestinal_tract, drugs_affecting_myocardial_function, drugs_affecting_renal_function, antiviral_drugs, antiinflammatory_and_pain_relievers, antifungal_drugs, antineoplastic_drugs, other]
+        app_id:
           type: string
