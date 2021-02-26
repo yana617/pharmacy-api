@@ -16,15 +16,15 @@ test('Shouldn\'t pass if unauthorized', () => {
   };
   const response = {
     status: jest.fn().mockImplementation(() => response),
-    send: jest.fn(),
+    json: jest.fn(),
   };
   const next = jest.fn();
   authRequired(requestAuthorized, response, next);
   expect(response.status).toHaveBeenCalledTimes(1);
   expect(response.status).toHaveBeenCalledWith(401);
 
-  expect(response.send).toHaveBeenCalledTimes(1);
-  expect(response.send).toHaveBeenCalledWith({
+  expect(response.json).toHaveBeenCalledTimes(1);
+  expect(response.json).toHaveBeenCalledWith({
     success: false,
     error: 'Unauthorized',
   });
