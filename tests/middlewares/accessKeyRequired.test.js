@@ -37,5 +37,5 @@ test('Should set app_id, if access-key is right', async () => {
   req.headers['access-key'] = appOne.access_key;
   await accessKeyRequired(req, res, next);
   expect(next).toHaveBeenCalled();
-  expect(req.app_id).not.toBeNull();
+  expect(req.app).not.toBeNull();
 });
