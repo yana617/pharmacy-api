@@ -126,6 +126,18 @@ paths:
           schema:
             type: string
           required: true
+        - in: path
+          name: limit
+          description: Limit of medicines to get
+          schema:
+            type: integer
+          required: false
+        - in: path
+          name: skip
+          description: How many medicines to skip
+          schema:
+            type: integer
+          required: false
       responses:
         '200':
           description: Returns medicines related to one app

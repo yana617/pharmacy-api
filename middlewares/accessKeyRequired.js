@@ -17,6 +17,6 @@ module.exports = async (req, res, next) => {
     });
   }
 
-  req.app_id = app._id;
+  req.app = app;
   return next();
 };
