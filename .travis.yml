@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "11"
+dist: trusty
+services:
+  - mongodb
+env:
+  - NODE_ENV=test PORT=4444 DATABASE_NAME=travis-test DATABASE_CONNECTING_STRING=mongodb://localhost REGISTER_TOKEN=reg_token SESSION_SECRET=secret
+cache:
+  directories:
+    - node_modules
+install:
+  - npm install
+script:
+  - npm run lint
+  - npm run test
