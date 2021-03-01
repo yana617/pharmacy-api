@@ -1,6 +1,7 @@
 const route = require('express').Router();
 
 const accessKeyRequired = require('../middlewares/accessKeyRequired');
+const Medicine = require('../models/medicine');
 
 route.get('/', accessKeyRequired, async (req, res) => {
   try {
@@ -25,7 +26,7 @@ route.get('/', accessKeyRequired, async (req, res) => {
 
 route.get('/:id', accessKeyRequired, async (req, res) => {
   try {
-    const { app_id } = req;
+    const { _id: app_id } = req.app;
     const { id: medicineId } = req.params;
     const medicine = await Medicine.findOne({ _id: medicineId, app_id });
 
