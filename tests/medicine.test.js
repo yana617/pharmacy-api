@@ -37,4 +37,54 @@ describe('GET /medicines request', () => {
     expect(medicines.length).toBe(1);
     expect(medicines[0].name).toBe(medicineOne.name);
   });
+
+  describe('pagination', () => {
+    test('Should return all medicines', async () => {
+      await new App(appOne).save();
+      await new Medicine(medicineOne).save();
+      const medicineThree = { ...medicineTwo, app_id: medicineOne.app_id };
+      await new Medicine(medicineThree).save();
+
+      const response = await request(app)
+        .get('/medicines')
+        .set('access-key', appOne.access_key)
+        .expect(200);
+
+      const { medicines } = response.body;
+      expect(medicines.length).toBe(2);
+    });
+    test('Should return first one medicine', async () => {
+      const medicineThree = { ...medicineTwo, app_id: medicineOne.app_id };
+      await new App(appOne).save();
+      await new Medicine(medicineOne).save();
+      await new Medicine(medicineThree).save();
+
+      const limit = 1;
+      const response = await request(app)
+        .get(`/medicines?limit=${limit}`)
+        .set('access-key', appOne.access_key)
+        .expect(200);
+
+      const { medicines } = response.body;
+      expect(medicines.length).toBe(1);
+      expect(medicines[0].name).toBe(medicineOne.name);
+    });
+    test('Should return second one medicine', async () => {
+      const medicineThree = { ...medicineTwo, app_id: medicineOne.app_id };
+      await new App(appOne).save();
+      await new Medicine(medicineOne).save();
+      await new Medicine(medicineThree).save();
+
+      const limit = 1;
+      const skip = 1;
+      const response = await request(app)
+        .get(`/medicines?limit=${limit}&skip=${skip}`)
+        .set('access-key', appOne.access_key)
+        .expect(200);
+
+      const { medicines } = response.body;
+      expect(medicines.length).toBe(1);
+      expect(medicines[0].name).toBe(medicineThree.name);
+    });
+  });
 });
