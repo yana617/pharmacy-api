@@ -40,19 +40,20 @@ route.post('/register', async (req, res) => {
 });
 
 route.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, admin, message) => {
+  passport.authenticate('local', (err, admin, data) => {
     if (!admin) {
-      return res.status(400).json({ success: false, ...message });
+      return res.status(400).json({ success: false, error: data.message || data.error });
     }
 
     req.login(admin, (error) => {
       if (error) {
-        return res.status(400).json({ success: false, ...message });
+        return res.status(400).json({ success: false, ...error });
       }
 
-      res.json({
+      return res.json({
         success: true,
         admin: {
+          _id: admin._id,
           login: admin.login,
         },
       });

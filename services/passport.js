@@ -8,7 +8,7 @@ passport.use(new LocalStrategy({
   passwordField: 'password',
 }, ((login, password, done) => {
   Admin.findOne({ login }, 'login salt hash', (err, admin) => {
-    if (err) { return done(err); }
+    if (err) { return done({ error: err.message }); }
     if (!admin) {
       return done(null, false, {
         error: 'No admin with such login',
