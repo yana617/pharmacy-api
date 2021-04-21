@@ -1,23 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 
+import Input from '../Input';
 import { makeRequest } from '../../utils/makeRequest';
-import useInput from '../../hooks/useInput';
 import useApp from '../../hooks/useApp';
 
 import './styles.scss';
 
 const LoginFrom = () => {
-  const [login, loginInput] = useInput({ label: 'Login', className: 'login-form__input', id: 'login-input' });
-  const [password, passwordInput] = useInput({
-    label: 'Password',
-    className: 'login-form__input',
-    type: 'password',
-    id: 'password-input',
-  });
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
   const app = useApp();
 
-  const sendRequest = useCallback(async () => {
+  const sendRequest = async () => {
     if (app.loading) return;
     app.setLoading(true);
     const result = await makeRequest('/admins/login', {
@@ -29,13 +24,20 @@ const LoginFrom = () => {
       app.setSnackbarText(result.error);
       app.setSnackbar(true);
     }
-  }, [login, password, app]);
+  };
 
   return (
     <div className="login-form">
       <h2>Login Form</h2>
-      {loginInput}
-      {passwordInput}
+      <Input id="login-input" label="Login" className="login-form__input" value={login} onChange={setLogin} />
+      <Input
+        id="password-input"
+        label="Password"
+        className="login-form__input"
+        type="password"
+        value={password}
+        onChange={setPassword}
+      />
       <Button
         onClick={sendRequest}
         variant="contained"

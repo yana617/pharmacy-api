@@ -24,12 +24,7 @@
     "no-plusplus": "off",
     "func-names": "off",
     "no-console": "off",
-    "class-methods-use-this": "off",
     "no-underscore-dangle": "off",
-    "no-multi-str": "off",
-    "prefer-template": "off",
-    "no-prototype-builtins": "off",
-    "no-restricted-globals": "off",
     "consistent-return": "off",
     "no-loop-func": "off",
     "eqeqeq": [
@@ -39,7 +34,6 @@
         "null": "ignore"
       }
     ],
-    "prefer-promise-reject-errors": "warn",
     "no-use-before-define": "warn",
     "prefer-destructuring": "warn",
     "camelcase": "off"

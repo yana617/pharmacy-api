@@ -1,9 +1,11 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import App from './App';
-import * as request from './utils/makeRequest';
+
+import Login from './index';
+import App from '../../App';
+import * as request from '../../utils/makeRequest';
 
 test('renders login form', () => {
-  render(<App />);
+  render(<Login />);
   const titleElement = screen.getByText(/Login Form/i);
   expect(titleElement).toBeInTheDocument();
 });
