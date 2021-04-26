@@ -2,24 +2,41 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "e2e-test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test --watchAll=false --modulePathIgnorePatterns=/tests --coverage",
+    "eject": "react-scripts eject",
+    "lint": "eslint src/"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
+  "devDependencies": {
+    "eslint": "^7.21.0",
+    "eslint-plugin-react": "^7.22.0",
+    "puppeteer": "^9.0.0",
+    "react-test-renderer": "^17.0.1"
+  },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.8.0",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^13.1.5",
     "fontsource-roboto": "^4.0.0",
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
-    "eject": "react-scripts eject",
-    "lint": "eslint src/"
   },
   "browserslist": {
     "production": [
@@ -32,10 +49,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "^7.21.0",
-    "eslint-plugin-react": "^7.22.0",
-    "react-test-renderer": "^17.0.1"
   }
 }

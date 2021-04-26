@@ -2,7 +2,7 @@
 ### API for managing your medicines
 
 ## Requirements
-- nodejs
+- nodejs 12
 - npm
 - mongodb
 

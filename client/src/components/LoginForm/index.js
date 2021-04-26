@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
 
 import Input from '../Input';
 import { makeRequest } from '../../utils/makeRequest';
@@ -11,6 +12,7 @@ const LoginFrom = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const app = useApp();
+  const history = useHistory();
 
   const sendRequest = async () => {
     if (app.loading) return;
@@ -23,6 +25,8 @@ const LoginFrom = () => {
     if (!result.success) {
       app.setSnackbarText(result.error);
       app.setSnackbar(true);
+    } else {
+      history.push('/apps');
     }
   };
 

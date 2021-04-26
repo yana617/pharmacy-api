@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "_id": "af8e7b1f-1009-4958-b720-53ed85060426",
+      "name": "House of souls",
+      "medicinesCount": 15
+    }, {
+      "_id": "3264b07a-d7c6-4de9-9ab8-aa9c723183b9",
+      "name": "DSN",
+      "medicinesCount": 2
+    }
+  ]
+}
