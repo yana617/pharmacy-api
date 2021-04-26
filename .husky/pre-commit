@@ -3,3 +3,6 @@
 
 npm run lint
 npm test
+cd client
+npm run lint
+npm test

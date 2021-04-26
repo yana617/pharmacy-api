@@ -11,6 +11,7 @@ const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -50,6 +51,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./services/passport');
+
+app.use(cors());
 
 app.use(require('./routes'));
 
