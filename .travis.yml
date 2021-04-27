@@ -4,8 +4,6 @@ node_js:
 dist: trusty
 services:
   - mongodb
-env:
-  - NODE_ENV=test PORT=4444 DATABASE_NAME=travis-test DATABASE_CONNECTING_STRING=mongodb://localhost REGISTER_TOKEN=reg_token SESSION_SECRET=secret
 cache:
   directories:
     - node_modules
@@ -13,7 +11,7 @@ cache:
 matrix:
   fast_finish: true
   include:
-    - env: NodeJS
+    - env: NODE_ENV=test PORT=4444 DATABASE_NAME=travis-test DATABASE_CONNECTING_STRING=mongodb://localhost REGISTER_TOKEN=reg_token SESSION_SECRET=secret
       before_script:
         - npm install
       script:
