@@ -10,13 +10,19 @@ cache:
   directories:
     - node_modules
     - client/node_modules
-install:
-  - npm install
-  - cd client
-  - npm install
-script:
-  - npm run lint
-  - npm run test
-  - cd ./client
-  - npm run lint
-  - npm run test
+matrix:
+  fast_finish: true
+  include:
+    - env: NodeJS
+      before_script:
+        - npm install
+      script:
+        - npm run lint
+        - npm test
+    - env: React
+      before_script:
+        - cd client
+        - npm install
+      script:
+        - npm run lint
+        - npm test
