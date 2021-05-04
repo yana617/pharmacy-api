@@ -41,3 +41,57 @@ describe('GET /apps request', () => {
     expect(apps[0].name).toBe(appOne.name);
   });
 });
+
+describe('GET /app/:id request', () => {
+  test('Should return 401, if unauthorized', async () => {
+    const response = await request(app)
+      .get('/apps/1')
+      .expect(401);
+
+    expect(response.error).not.toBeNull();
+  });
+
+  test('Should return correct app, if authorized', async () => {
+    await new Admin(adminOne).save();
+    await new App(appOne).save();
+
+    const connectCookie = await getConnectCookie(adminOne);
+
+    const response = await request(app)
+      .get(`/apps/${appOne._id}`)
+      .set('cookie', connectCookie)
+      .expect(200);
+
+    const { app: appResponse } = response.body;
+    expect(appResponse.name).toBe(appOne.name);
+  });
+
+  test('Should return error, if app not found', async () => {
+    await new Admin(adminOne).save();
+
+    const connectCookie = await getConnectCookie(adminOne);
+
+    const response = await request(app)
+      .get(`/apps/${appOne._id}`)
+      .set('cookie', connectCookie)
+      .expect(400);
+
+    expect(response.error).not.toBeNull();
+    expect(response.body.error).toBe('App not found.');
+  });
+
+  test('Should return error, if app is not assigned to current admin', async () => {
+    await new Admin(adminOne).save();
+    await new App(appTwo).save();
+
+    const connectCookie = await getConnectCookie(adminOne);
+
+    const response = await request(app)
+      .get(`/apps/${appTwo._id}`)
+      .set('cookie', connectCookie)
+      .expect(400);
+
+    expect(response.error).not.toBeNull();
+    expect(response.body.error).toBe('This app is not assigned to you.');
+  });
+});
