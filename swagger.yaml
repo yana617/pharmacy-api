@@ -116,6 +116,45 @@ paths:
               example:
                 success: false
                 error: 'Unauthorized'
+  /apps/{appId}:
+    get:
+      summary: Get app by ID
+      parameters:
+        - in: path
+          name: appId
+          schema:
+            type: string
+          required: true
+          description: Numeric ID of the app to get
+      responses:
+        '200':
+          description: Returns app
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  app:
+                    $ref: '#/components/schemas/App'
+        '400':
+          description: App is not assigned to you
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              examples:
+                error_not_found:
+                  summary: App not found
+                  value:
+                    success: false
+                    error: "App not found."
+                error_app_is_not_assigned_to_you:
+                  summary: App is not assigned to you
+                  value:
+                    success: false
+                    error: "App is not assigned to you."
   /medicines:
     get:
       summary: Get medicines by access-key (related to one app)
