@@ -1,7 +1,9 @@
 const route = require('express').Router();
+const { v4: uuidv4 } = require('uuid');
 
 const App = require('../models/app');
 const authRequired = require('../middlewares/authRequired');
+const validateApp = require('../middlewares/validateApp');
 
 route.get('/', authRequired, async (req, res) => {
   try {
@@ -25,6 +27,19 @@ route.get('/:id', authRequired, async (req, res) => {
       return res.status(400).json({ success: false, error: 'This app is not assigned to you.' });
     }
     res.json({ success: true, app });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+route.post('/', authRequired, validateApp, async (req, res) => {
+  try {
+    const { _id: admin_id } = req.user;
+    let newApp = new App({ ...req.body, access_key: uuidv4(), admin_id });
+    await newApp.save();
+    newApp = newApp.toObject();
+    delete newApp.access_key;
+    res.json({ success: true, app: newApp });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
   }

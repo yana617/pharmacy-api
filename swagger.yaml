@@ -116,6 +116,49 @@ paths:
               example:
                 success: false
                 error: 'Unauthorized'
+    post:
+      summary: Post new app
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  required: true
+                  unique: true
+      responses:
+        '200':
+          description: Returns posted app
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  app:
+                    $ref: '#/components/schemas/App'
+        '400':
+          description: App name errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                success: false
+                error: 'Provide app name'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                success: false
+                error: 'Unauthorized'
   /apps/{appId}:
     get:
       summary: Get app by ID
@@ -138,6 +181,13 @@ paths:
                     type: boolean
                   app:
                     $ref: '#/components/schemas/App'
+              example:
+                success: true
+                app:
+                  _id: 'string'
+                  name: 'App name'
+                  access_key: 'string'
+                  admin_id: 'string'
         '400':
           description: App is not assigned to you
           content:
@@ -270,8 +320,6 @@ components:
         name:
           type: string
           default: 'App name'
-        access_key:
-          type: string
         admin_id:
           type: string
     Medicine:
