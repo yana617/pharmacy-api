@@ -1,6 +1,7 @@
 const route = require('express').Router();
 
 const accessKeyRequired = require('../middlewares/accessKeyRequired');
+const validateMedicine = require('../middlewares/validateMedicine');
 const Medicine = require('../models/medicine');
 
 route.get('/', accessKeyRequired, async (req, res) => {
@@ -35,6 +36,19 @@ route.get('/:id', accessKeyRequired, async (req, res) => {
     }
 
     res.json({ success: true, medicine });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+route.post('/', accessKeyRequired, validateMedicine, async (req, res) => {
+  try {
+    const { _id: app_id } = req.app;
+    let newMedicine = new Medicine({ ...req.body, app_id });
+    await newMedicine.save();
+    newMedicine = newMedicine.toObject();
+    delete newMedicine.app_id;
+    res.json({ success: true, medicine: newMedicine });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }

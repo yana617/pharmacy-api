@@ -135,3 +135,47 @@ describe('GET /medicines/:id request', () => {
     expect(medicine.name).toBe(medicineOne.name);
   });
 });
+
+describe('POST /medicines request', () => {
+  test('Should fail if you don\'t provide access-key', async () => {
+    const response = await request(app)
+      .post('/medicines')
+      .expect(400);
+
+    expect(response.error).not.toBeNull();
+  });
+
+  test('Should fail if body is not provided', async () => {
+    await new App(appOne).save();
+    const response = await request(app)
+      .post('/medicines')
+      .set('access-key', appOne.access_key)
+      .expect(400);
+
+    expect(response.error).not.toBeNull();
+  });
+
+  test('Should fail if name field is not provided', async () => {
+    await new App(appOne).save();
+    const testMedicine = { ...medicineOne, name: undefined };
+    const response = await request(app)
+      .post('/medicines')
+      .set('access-key', appOne.access_key)
+      .send(testMedicine)
+      .expect(400);
+
+    expect(response.error).not.toBeNull();
+  });
+
+  test('Should return medicine, if all fields were provided', async () => {
+    await new App(appOne).save();
+    const response = await request(app)
+      .post('/medicines')
+      .set('access-key', appOne.access_key)
+      .send(medicineOne)
+      .expect(200);
+
+    const { medicine } = response.body;
+    expect(medicine.name).toBe(medicineOne.name);
+  });
+});
