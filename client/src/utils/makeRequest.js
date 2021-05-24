@@ -4,8 +4,9 @@ const baseUrl = process.env.NODE_ENV === 'development'
 
 const makeRequest = (url, options) => {
   return fetch(`${baseUrl}${url}`, {
+    method: 'GET',
     ...options,
-    credentials: 'same-origin',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },

@@ -15,6 +15,8 @@ const appSchema = new mongoose.Schema({
     ref: 'Admin',
     required: true,
   },
+}, {
+  timestamps: true,
 });
 
 appSchema.virtual('medicines', {

@@ -1,0 +1,97 @@
+.app {
+  display: flex;
+  margin: 16px 24px 0 24px;
+  width: 600px;
+  background-color: white;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+
+  &__img {
+    width: 200px;
+    height: 150px;
+    display: flex;
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+
+    &__text {
+      display: none;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+
+  &__name {
+    font-size: 20px;
+    margin-left: 24px;
+    margin-top: 24px;
+  }
+
+  &__medicines {
+    font-size: 16px;
+    margin-top: -16px;
+    margin-left: 24px;
+    color: #b3b3b3;
+  }
+
+  &__arrow-view {
+    display: none;
+    position: absolute;
+    top: 25%;
+    right: 16px;
+    flex-direction: column;
+    align-items: center;
+    color: #1AA170;
+    letter-spacing: 2px;
+  }
+
+  &__arrow-container {
+    display: flex;
+    align-items: center;
+    margin-top: -16px;
+
+    &__arrow {
+      border: solid #1AA170;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 6px;
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+    }
+    
+    &__line {
+      width: 100px;
+      height: 2px;
+      margin-right: -16px;
+      background-color: #1AA170;
+    }
+  }
+
+  &:hover {
+    background-color: #d9ede0;
+
+    .app__arrow-view {
+      display: flex;
+    }
+
+    .app__img {
+      opacity: 0.5;
+      &__text {
+        display: block;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  @media (max-width: 380px) {
+    flex-direction: column;
+
+    &__img {
+      width: 100%;
+    }
+  }
+}
