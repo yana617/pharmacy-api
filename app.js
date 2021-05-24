@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
@@ -27,10 +26,28 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use('/static', express.static('img'));
 
-app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
-app.use(bodyParser.json({ limit: '10mb', extended: true }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '10mb' }));
 app.use(boolParser());
 app.use(cookieParser());
+
+const whitelist = ['http://localhost:3000'];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+if (process.env.NODE_ENV !== 'test') {
+  app.use(cors(corsOptions));
+}
 
 app.use(expressSession({
   store: new MongoStore({
@@ -51,8 +68,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./services/passport');
-
-app.use(cors());
 
 app.use(require('./routes'));
 

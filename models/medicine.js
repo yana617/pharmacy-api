@@ -35,6 +35,8 @@ const medicineSchema = new mongoose.Schema({
     ref: 'App',
     required: true,
   },
+}, {
+  timestamps: true,
 });
 
 const Medicine = mongoose.model('Medicine', medicineSchema);
