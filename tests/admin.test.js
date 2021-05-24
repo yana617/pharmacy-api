@@ -18,6 +18,17 @@ test('Should register new admin', async () => {
   expect(adminInDb.login).toEqual(admin.login);
 });
 
+test('Shouldn\'t register new admin if there is no register token', async () => {
+  const response = await request(app)
+    .post('/admins/register')
+    .send(adminOne)
+    .expect(403);
+
+  const { error } = response.body;
+  expect(response.error).not.toBeNull();
+  expect(error).toBe('Incorrect token');
+});
+
 test('Should login existing admin', async () => {
   await new Admin(adminOne).save();
   const response = await request(app)

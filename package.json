@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=prod node index.js",
-    "test": "NODE_ENV=test jest --runInBand --testRunner='jest-circus/runner' --verbose --coverage",
+    "test": "NODE_ENV=test jest --runInBand --testRunner='jest-circus/runner' --coverage --verbose",
     "lint": "node_modules/.bin/eslint .",
     "postinstall": "husky install",
     "server": "NODE_ENV=dev nodemon index.js",
@@ -29,7 +29,15 @@
     ],
     "modulePathIgnorePatterns": [
       "<rootDir>/client/"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
   },
   "dependencies": {
     "bcrypt": "5.0.0",
@@ -47,7 +55,8 @@
     "morgan": "1.10.0",
     "passport": "0.4.1",
     "passport-local": "1.0.0",
-    "swagger-ui-express": "4.1.6"
+    "swagger-ui-express": "4.1.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "concurrently": "^6.0.0",

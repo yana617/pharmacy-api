@@ -5,10 +5,12 @@ const appSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    unique: true,
   },
   access_key: {
     type: String,
     required: true,
+    select: false,
   },
   admin_id: {
     type: mongoose.Types.ObjectId,
