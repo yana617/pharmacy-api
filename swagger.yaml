@@ -155,6 +155,15 @@ paths:
                   value:
                     success: false
                     error: "App is not assigned to you."
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              example:
+                success: false
+                error: 'Unauthorized'
   /medicines:
     get:
       summary: Get medicines by access-key (related to one app)
@@ -237,6 +246,64 @@ paths:
               example:
                 success: false
                 error: 'App with such access key not found'
+  /translates/{collection}:
+    get:
+      summary: Get translates for collection
+      parameters:
+        - in: header
+          name: access-key
+          description: app related token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: collection
+          schema:
+            type: string
+            enum: [medicinesTypes, medicinesClasses]
+          required: true
+          description: Collection name
+        - in: query
+          name: lang
+          schema:
+            type: string
+            enum: [en, ru]
+          description: lang to translate
+          required: true
+      responses:
+        '200':
+          description: Returns correct translates
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  collection:
+                    type: object
+        '400':
+          description: Access-key error, lang errors, collection errors 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              examples:
+                error_access_key:
+                  summary: App with such access key not found
+                  value:
+                    success: false
+                    error: "App with such access key not found"
+                error_lang:
+                  summary: Lang errors
+                  value:
+                    success: false
+                    error: "Provide lang query"
+                error_collection:
+                  summary: Unsupported collection
+                  value:
+                    success: false
+                    error: "Unsupported collection"
 components:
   schemas:
     errorResponse:
