@@ -28,7 +28,7 @@ const medicineSchema = new mongoose.Schema({
   class: {
     type: String,
     enum: MEDICINES_CLASSES,
-    required: false,
+    required: true,
   },
   app_id: {
     type: mongoose.Types.ObjectId,

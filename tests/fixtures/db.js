@@ -45,6 +45,7 @@ const medicineOne = {
   expiration_date: new Date(),
   count: 5,
   type: 'tablet',
+  class: 'drugs_affecting_immunity',
   app_id: appOneId,
 };
 const medicineTwo = {
@@ -53,6 +54,7 @@ const medicineTwo = {
   expiration_date: new Date(),
   count: 10,
   type: 'tablet',
+  class: 'drugs_affecting_immunity',
   app_id: appTwoId,
 };
 
